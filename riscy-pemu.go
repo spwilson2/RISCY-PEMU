@@ -32,12 +32,9 @@ func main() {
 		return
 	}
 
-	var memory []uint32
+	memory := mem.Fill(*inputfilename)
 
-	mem.Fill(*inputfilename, &memory)
-	for _, val := range memory {
-		fmt.Printf("0x%x\n", val)
-	}
+	fmt.Printf("%v", memory)
 }
 
 /*
