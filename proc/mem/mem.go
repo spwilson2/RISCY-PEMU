@@ -1,51 +1,44 @@
 package mem
 
 import (
-	"fmt"
 	"bytes"
-	"io/ioutil"
 	"encoding/binary"
+	"fmt"
+	"io/ioutil"
 )
 
-
-type mem struct {
+type Memory struct {
 	memory []uint32
 }
 
-//TODO Add wrapper methods to make it impossible to access outside of this library.
-var memholder mem
+func (memory Memory) String() (out string) {
 
-func (p mem) String() (out string) {
-
-	for _, val := range memholder.memory {
+	for _, val := range memory.memory {
 		out += fmt.Sprintf("0x%x\n", val)
 	}
 
 	return
 }
 
-
-/* Fill in the given array with the input file's data.*/
-func Fill(inputfile string) *mem {
+/* Fill in the given Memory with the input file's data.*/
+func (memory *Memory) Fill(inputfile string) {
 
 	data, err := ioutil.ReadFile(inputfile)
 	check(err)
 
-	for val := 0 ; val < len(data) / 4; val += 4 {
-		memholder.memory = append(memholder.memory, read_int32(data[val*4:val*4+4]))
+	for val := 0; val < len(data)/4; val += 4 {
+		memory.memory = append(memory.memory, read_int32(data[val*4:val*4+4]))
 	}
-
-	return  &memholder
 }
 
 /* Fetch fetches a word at address from processor's simulated memory.
-*/
+ */
 func Fetch(uint32) uint32 {
 	return 0
 }
 
 /* Writes the word to the given address in processor's simulated memory.
-*/
+ */
 func Write(src uint32, dest uint32) {
 }
 

@@ -1,13 +1,13 @@
 package main
 
 import (
-	"github.com/spwilson2/riscy-pemu/proc/mem"
 	"flag"
 	"fmt"
+	"github.com/spwilson2/riscy-pemu/proc/mem"
 )
 
 func main() {
-	inputfilename := flag.String("i", "", "The input file path") 
+	inputfilename := flag.String("i", "", "The input file path")
 	dumpfilename := flag.String("m", "default", "File to dump memory to")
 	dumpashex := flag.Bool("h", false, "Pipe memory dump into a hex formater")
 	dumpregs := flag.Bool("r", false, "Dump the register file with stats.")
@@ -32,9 +32,9 @@ func main() {
 		return
 	}
 
-	memory := mem.Fill(*inputfilename)
-
-	fmt.Printf("%v", memory)
+	var memory mem.Memory
+	memory.Fill(*inputfilename)
+	fmt.Printf("Printing memory: %v", memory)
 }
 
 /*
